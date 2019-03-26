@@ -1,0 +1,7 @@
+source ~/.profile
+
+workon cv
+
+cd project_files/
+
+python F_V0.py
