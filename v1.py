@@ -99,7 +99,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             cv2.line(frame, (startX, cY), (endX, cY), (0, 0, 255), 3)
             cv2.line(frame, (cX, startY), (cX, endY), (0, 0, 255), 3)
             cv2.imwrite('unhealthy_leaf.png', frame)
-            send_email(code=1)
+            #send_email(code=1)
             #Get the center of the bounding box (it's center)
             pos_x = int(M['m10']/(M['m00'] + 0.00001))
             pos_y = int(M['m01']/(M['m00'] + 0.00001))
@@ -116,3 +116,5 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == ord("q"):
         break
 cv2.waitKey()
+
+
