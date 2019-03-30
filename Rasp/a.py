@@ -1,12 +1,9 @@
-from gpiozero import Button
 import time
 from send_email_with_att import email_sender as es
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2
 import numpy as np
-
-button = Button(6)
 
 previous_time = 0.0
 current_time = 0.0
@@ -52,7 +49,8 @@ time.sleep(0.1)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     frame = frame.array
-    
+
+    '''
     if not button.is_pressed:
         cv2.imwrite('camera_current_image.png', frame)
         
@@ -60,6 +58,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         # send_email(code=2)
     else:
         print("LOW")
+    '''
     
     #Convert the frame in to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -99,7 +98,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             cv2.line(frame, (startX, cY), (endX, cY), (0, 0, 255), 3)
             cv2.line(frame, (cX, startY), (cX, endY), (0, 0, 255), 3)
             cv2.imwrite('unhealthy_leaf.png', frame)
-            send_email(code=1)
+            print('unhealthy_leaf detect\nsending email...')
+            #send_email(code=1)
             #Get the center of the bounding box (it's center)
             pos_x = int(M['m10']/(M['m00'] + 0.00001))
             pos_y = int(M['m01']/(M['m00'] + 0.00001))
@@ -116,3 +116,5 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == ord("q"):
         break
 cv2.waitKey()
+
+
